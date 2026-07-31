@@ -49,3 +49,15 @@ class cars:
 
     def get_capacity(self):
         return self.__capacity
+    
+    def display(self):
+        print("Car Number:", self.__number)
+        print("Car Name:", self.__name)
+        print("Car Age:", self.__age)
+        print("Car Type:", self.__car_type)
+        print("Car Team:", self.__team)
+        print("Car Speed:", self.__speed)
+        print("Car Capacity:", self.__capacity)
+        
+    def calculate_performance(self):
+        raise NotImplementedError
