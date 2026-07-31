@@ -14,7 +14,9 @@ class Car:
     def set_name(self, name):
         self.__name = name
     
-    def set_age(self, age): 
+    def set_age(self, age):
+        if age < 0:
+            raise ValueError("Age cannot be negative.") 
         self.__age = age
     
     def set_car_type(self, car_type):
@@ -27,6 +29,8 @@ class Car:
         self.__speed = speed  
         
     def set_capacity(self, capacity):
+        if capacity < 0:
+            raise ValueError("Capacity cannot be negative.")
         self.__capacity = capacity    
     
     def get_number(self):
