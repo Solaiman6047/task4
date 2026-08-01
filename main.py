@@ -1,5 +1,6 @@
 from Racer import Racer
 from SupportVehicle import SupportVehicle
+from Car import Car
 
 
 garage = []
@@ -58,7 +59,7 @@ def tune_up():
             cars.set_age(new_age)
             cars.set_speed(new_speed)
             cars.set_capacity(new_capacity)
-            if cars.get_car_type().lower() == "racer":
+            if isinstance(cars, Racer):
                 new_races = int(input("Enter the new number of races: "))
                 new_laps = int(input("Enter the new number of laps: "))   
                 cars.set_races(new_races)
@@ -136,9 +137,43 @@ def search_by_name():
             print("Performance:", cars.calculate_performance())
             return
     print("Car with this name not found.")
+    
+def save_garage_to_file():
+    data = []
+    for cars in garage:
+        car_data = {
+            "number": cars.get_number(),
+            "name": cars.get_name(),
+            "age": cars.get_age(),
+            "car_type": cars.get_car_type(),
+            "team": cars.get_team(),
+            "speed": cars.get_speed(),
+            "capacity": cars.get_capacity()
+        }
+        if isinstance(cars, Racer):
+            car_data["races"] = cars.get_races()
+            car_data["laps"] = cars.get_laps()
+        elif isinstance(cars, SupportVehicle):
+            car_data["crew_size"] = cars.get_crew_size()
+            car_data["reliability_rating"] = cars.get_reliability_rating()
+        data.append(car_data)
+        with open("garage.json", "w") as file:
+            json.dump(data, file, indent=4)
 
-
-
+import json
+file_path= "garage.json"
+try:
+    with open(file_path, "r") as file:
+        data= json.load(file)
+        for car_data in data:
+            if isinstance(car_data, Racer):
+                car = Racer(car_data["number"], car_data["name"], car_data["age"], car_data["car_type"], car_data["team"], car_data["speed"], car_data["capacity"], car_data["races"], car_data["laps"])
+                garage.append(car)
+            elif isinstance(car_data, SupportVehicle):
+                car = SupportVehicle(car_data["number"], car_data["name"], car_data["age"], car_data["car_type"], car_data["team"], car_data["speed"], car_data["capacity"], car_data["crew_size"], car_data["reliability_rating"])
+                garage.append(car)
+except FileNotFoundError:
+    file = open(file_path, "w") 
 
 while True:
     print("\nGarage Management System")
@@ -169,3 +204,4 @@ while True:
         break
     else:
         print("Invalid choice. Please try again.")
+    save_garage_to_file()
