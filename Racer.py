@@ -5,6 +5,7 @@ class Racer(Car):
         super().__init__(number, name, age, car_type, team, speed, capacity)
         self.__races = races
         self.__laps = laps
+        self.__performance = self.calculate_performance()
         
     def set_races(self, races):
         self.__races = races
@@ -26,5 +27,3 @@ class Racer(Car):
         super().display()
         print("Number of Races:", self.__races)
         print("Number of Laps:", self.__laps)   
-        
-        

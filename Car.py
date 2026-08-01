@@ -7,6 +7,7 @@ class Car:
         self.__team = team
         self.__speed = speed
         self.__capacity = capacity
+        self.__performance = self.calculate_performance()
     
     def set_number(self, number):
         self.__number = number
@@ -64,6 +65,5 @@ class Car:
         print("Car Capacity:", self.__capacity)
         
     def calculate_performance(self):
-        raise NotImplementedError
-    
-    
+        performance = self.__speed  + self.__capacity
+        return performance

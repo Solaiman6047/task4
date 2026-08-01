@@ -5,6 +5,7 @@ class SupportVehicle(Car):
         super().__init__(number, name, age, car_type, team, speed, capacity)
         self.__crew_size = crew_size
         self.__reliability_rating = reliability_rating
+        self.__performance = self.calculate_performance()
 
     def set_crew_size(self, crew_size):
         self.__crew_size = crew_size
